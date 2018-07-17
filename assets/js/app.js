@@ -27,7 +27,17 @@ const gameOver = (won, msg) => {
     // Set text color
     message.style.color = color;
     setMessage(msg);
+    // Play again
+    guessBtn.value = 'Play Again';
+    guessBtn.className += 'play-again';
 };
+
+// Play again event listener
+game.addEventListener('mousedown', (e)=>{
+    if(e.target.className === 'play-again') {
+        window.location.reload();
+    }
+});
 
 // Listen for guess
 guessBtn.addEventListener("click", () => {
