@@ -16,6 +16,19 @@ const game = document.querySelector("#game"),
 minNum.textContent = min;
 maxNum.textContent = max;
 
+// Game over
+const gameOver = (won, msg) => {
+    let color;
+    won === true ? color = 'green' : color = 'red';
+    // Disable input 
+    guessInput.disabled = true;
+    // Change border color
+    guessInput.style.borderColor = color;
+    // Set text color
+    message.style.color = color;
+    setMessage(msg);
+};
+
 // Listen for guess
 guessBtn.addEventListener("click", () => {
     let guess = parseInt(guessInput.value);
@@ -26,11 +39,9 @@ guessBtn.addEventListener("click", () => {
     // Check if win
     if(guess === winningNum) {
         // Game over - won
-        // Disable input 
-        guessInput.disabled = true;
-        // Change border color
-        guessInput.style.borderColor = "green";
-        setMessage(`${winningNum} is correct! You win!`, "green");
+
+        gameOver(true, `${winningNum} is correct! You win!` )
+        
     } else {
         // Wrong number
         guessesLeft -= 1;
@@ -39,10 +50,7 @@ guessBtn.addEventListener("click", () => {
             // Game over - lost
 
             // Disable input 
-            guessInput.disabled = true;
-            // Change border color
-            guessInput.style.borderColor = "red";
-            setMessage(`Game Over, you lost. The correct number was ${winningNum}`, "red");
+            gameOver(false, `Game Over, you lost. The correct number was ${winningNum}`);
         } else {
             //  Game continues - answer wrong
 
